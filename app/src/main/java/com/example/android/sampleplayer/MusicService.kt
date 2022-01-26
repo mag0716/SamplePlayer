@@ -112,6 +112,7 @@ class MusicService : MediaBrowserServiceCompat(), LifecycleOwner {
                                         to
                                     )
                                 )
+                                mediaSessionConnector.invalidateMediaSessionQueue()
                             }
                         }
                     },
