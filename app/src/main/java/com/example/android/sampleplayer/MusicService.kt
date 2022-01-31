@@ -30,6 +30,7 @@ import com.google.android.exoplayer2.source.MediaSourceFactory
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.util.Clock
+import com.google.android.exoplayer2.util.Util
 import kotlinx.coroutines.launch
 
 class MusicService : MediaBrowserServiceCompat(), LifecycleOwner {
@@ -104,15 +105,18 @@ class MusicService : MediaBrowserServiceCompat(), LifecycleOwner {
                             handleOnPlayer: Boolean,
                             currentQueue: List<MediaSessionCompat.QueueItem>
                         ) {
-                            if(handleOnPlayer.not()) {
+                            if (handleOnPlayer.not()) {
                                 exoPlayer.setShuffleOrder(
                                     CustomShuffleOrder.cloneAndMove(
-                                        currentQueue.map { it.queueId.toInt() }.toList().toIntArray(),
+                                        currentQueue.map { it.queueId.toInt() }.toList()
+                                            .toIntArray(),
                                         from,
                                         to
                                     )
                                 )
-                                mediaSessionConnector.invalidateMediaSessionQueue()
+                                Util.createHandlerForCurrentLooper().post {
+                                    mediaSessionConnector.invalidateMediaSessionQueue()
+                                }
                             }
                         }
                     },
