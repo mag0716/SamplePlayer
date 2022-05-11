@@ -21,7 +21,7 @@ import com.example.android.sampleplayer.custom.CustomTimelineQueueEditor
 import com.example.android.sampleplayer.extension.toMediaBrowserCompatMediaItem
 import com.example.android.sampleplayer.extension.toMediaDescriptionCompat
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.analytics.AnalyticsCollector
+import com.google.android.exoplayer2.analytics.DefaultAnalyticsCollector
 import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.ext.mediasession.TimelineQueueNavigator
@@ -58,7 +58,7 @@ class MusicService : MediaBrowserServiceCompat(), LifecycleOwner {
             defaultTrackSelector,
             DefaultLoadControl(),
             DefaultBandwidthMeter.getSingletonInstance(this),
-            AnalyticsCollector(Clock.DEFAULT)
+            DefaultAnalyticsCollector(Clock.DEFAULT)
         ).setAudioAttributes(
             AudioAttributes.Builder().setContentType(C.CONTENT_TYPE_MUSIC).build(),
             true
@@ -104,10 +104,11 @@ class MusicService : MediaBrowserServiceCompat(), LifecycleOwner {
                             handleOnPlayer: Boolean,
                             currentQueue: List<MediaSessionCompat.QueueItem>
                         ) {
-                            if(handleOnPlayer.not()) {
+                            if (handleOnPlayer.not()) {
                                 exoPlayer.setShuffleOrder(
                                     CustomShuffleOrder.cloneAndMove(
-                                        currentQueue.map { it.queueId.toInt() }.toList().toIntArray(),
+                                        currentQueue.map { it.queueId.toInt() }.toList()
+                                            .toIntArray(),
                                         from,
                                         to
                                     )
