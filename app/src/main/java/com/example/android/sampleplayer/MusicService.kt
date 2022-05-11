@@ -26,7 +26,7 @@ import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.ext.mediasession.TimelineQueueNavigator
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
-import com.google.android.exoplayer2.source.MediaSourceFactory
+import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.util.Clock
@@ -41,7 +41,7 @@ class MusicService : MediaBrowserServiceCompat(), LifecycleOwner {
 
     private lateinit var exoPlayer: ExoPlayer
     private lateinit var defaultTrackSelector: DefaultTrackSelector
-    private lateinit var mediaSourceFactory: MediaSourceFactory
+    private lateinit var mediaSourceFactory: MediaSource.Factory
 
     private val musicPlayerListener = MusicPlayerListener()
 

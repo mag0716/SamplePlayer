@@ -6,7 +6,6 @@ import androidx.core.net.toUri
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.MediaMetadata
 import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.source.MediaSourceFactory
 
 data class Song(
     val id: String,
@@ -23,7 +22,7 @@ data class Song(
             MediaBrowserCompat.MediaItem.FLAG_PLAYABLE
         )
 
-    fun toMediaSource(mediaSourceFactory: MediaSourceFactory) : MediaSource =
+    fun toMediaSource(mediaSourceFactory: MediaSource.Factory): MediaSource =
         mediaSourceFactory.createMediaSource(toExoPlayerMediaItem())
 
     private fun toExoPlayerMediaItem(): MediaItem {
