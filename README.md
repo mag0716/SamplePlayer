@@ -28,7 +28,7 @@
 
 ## Environment
 
-* ExoPlayer:2.16.1
+* ExoPlayer:2.17.1
 * Test Device:
   * Pixel 3(OS 12)
   * Pixel 4(OS 11)
